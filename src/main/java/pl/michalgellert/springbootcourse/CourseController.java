@@ -2,10 +2,7 @@ package pl.michalgellert.springbootcourse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +24,32 @@ public class CourseController {
     @RequestMapping(value = "/available", method = RequestMethod.GET)
     public ResponseEntity<List<Course>> getAvailableCourses() {
         return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "buy/{id}", method = RequestMethod.POST)
+    public Course buyCourse(@PathVariable(value = "id") Long id) {
+        System.out.println("buyCourse");
+        return getCourse(id);
+    }
+
+    @RequestMapping(value = "buy2", method = RequestMethod.POST)
+    public Course buyCourse2(@RequestParam(value = "id") Long id) {
+        System.out.println("buyCourse2");
+        return getCourse(id);
+    }
+
+    private Course getCourse(Long id) {
+        Course course = null;
+        for(Course c : courses) {
+            if(c.getId()!=null&&c.getId().equals(id)) {
+                course = c;
+                break;
+            }
+        }
+        if(course==null) {
+            // TODO
+        }
+        return course;
     }
 
 //    @RequestMapping(value = "/bought", method = RequestMethod.GET) FIXME
