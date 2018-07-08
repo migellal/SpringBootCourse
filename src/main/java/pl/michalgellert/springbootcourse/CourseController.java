@@ -15,6 +15,8 @@ public class CourseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        if(course.getId()==null||course.getId()<0)
+            throw new WrongIdException("Zmienna kurs posiada id nullowe lub mniejsze od zera.");
         courses.add(course);
         System.out.println(course.getName());
         System.out.println(course.getLengthInSecond());
