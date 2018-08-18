@@ -1,4 +1,4 @@
-package pl.michalgellert.springbootcourse;
+package pl.michalgellert.springbootcourse.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

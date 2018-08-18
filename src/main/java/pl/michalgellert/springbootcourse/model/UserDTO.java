@@ -1,9 +1,9 @@
-package pl.michalgellert.springbootcourse;
+package pl.michalgellert.springbootcourse.model;
 
 import lombok.Data;
 
 @Data
-public class User {
+public class UserDTO {
 
     private String firstName;
     private String lastName;

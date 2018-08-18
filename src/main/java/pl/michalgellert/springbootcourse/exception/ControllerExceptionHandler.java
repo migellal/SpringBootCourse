@@ -1,4 +1,4 @@
-package pl.michalgellert.springbootcourse;
+package pl.michalgellert.springbootcourse.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
