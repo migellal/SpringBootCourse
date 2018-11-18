@@ -1,10 +1,13 @@
 package pl.michalgellert.springbootcourse.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.michalgellert.springbootcourse.model.CourseDTO;
 import pl.michalgellert.springbootcourse.exception.WrongIdException;
+import pl.michalgellert.springbootcourse.persistence.model.Course;
+import pl.michalgellert.springbootcourse.persistence.repository.CourseRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.List;
 public class CourseController {
 
     private List<CourseDTO> cours = new ArrayList<>();
+
+    @Autowired
+    CourseRepo courseRepo;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO courseDTO) {
@@ -30,10 +36,11 @@ public class CourseController {
         return new ResponseEntity<>(cours, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "buy/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "buy/{id}", method = RequestMethod.GET)
     public CourseDTO buyCourse(@PathVariable(value = "id") Long id) {
         System.out.println("buyCourse");
-        return getCourse(id);
+        Course c = courseRepo.getOne(id);
+        return new CourseDTO(c.getId(), c.getName(), 560);
     }
 
     @RequestMapping(value = "buy2", method = RequestMethod.POST)
