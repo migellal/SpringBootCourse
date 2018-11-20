@@ -22,4 +22,10 @@ public class CourseServiceImpl extends BaseServiceImpl<Course, Long, CourseRepo>
         return Mapper.courseToDTO(getOne(id));
     }
 
+    @Override
+    public CourseDTO createCourse(CourseDTO courseDTO) {
+         Course c = save(Mapper.dtoToCourse(courseDTO));
+         return Mapper.courseToDTO(c);
+    }
+
 }

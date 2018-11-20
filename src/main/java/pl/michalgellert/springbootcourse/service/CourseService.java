@@ -7,4 +7,6 @@ import pl.michalgellert.springbootcourse.persistence.repository.CourseRepo;
 public interface CourseService extends BaseService<Course, Long, CourseRepo> {
 
     CourseDTO getCourseDtoById(Long id);
+
+    CourseDTO createCourse(CourseDTO courseDTO);
 }

@@ -24,12 +24,11 @@ public class CourseController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO courseDTO) {
-        if (courseDTO.getId() == null || courseDTO.getId() < 0)
-            throw new WrongIdException("Zmienna kurs posiada id nullowe lub mniejsze od zera.");
-        cours.add(courseDTO);
-        System.out.println(courseDTO.getName());
-        System.out.println(courseDTO.getLengthInSecond());
-        return new ResponseEntity<>(courseDTO, HttpStatus.CREATED);
+        if (courseDTO.getId() != null)
+            throw new WrongIdException("Tworzony kurs nie powinien posiadać ID.");
+        System.out.println("/course/create" + courseDTO.getName());
+        CourseDTO dto = courseService.createCourse(courseDTO);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/available", method = RequestMethod.GET)

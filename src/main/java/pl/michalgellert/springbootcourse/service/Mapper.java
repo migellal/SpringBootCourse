@@ -7,9 +7,8 @@ public class Mapper {
 
     public static CourseDTO courseToDTO(Course course) {
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setId(course.getId());
         courseDTO.setName(course.getName());
-        courseDTO.setLengthInSecond(0);
+        courseDTO.setId(course.getId());
         return courseDTO;
     }
 
