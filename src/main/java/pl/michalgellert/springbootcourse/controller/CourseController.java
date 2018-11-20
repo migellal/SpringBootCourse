@@ -6,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.michalgellert.springbootcourse.exception.WrongIdException;
 import pl.michalgellert.springbootcourse.model.CourseDTO;
-import pl.michalgellert.springbootcourse.persistence.model.Course;
 import pl.michalgellert.springbootcourse.service.CourseService;
-import pl.michalgellert.springbootcourse.service.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +31,15 @@ public class CourseController {
 
     @RequestMapping(value = "/available", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> getAvailableCourses() {
-        return new ResponseEntity<>(cours, HttpStatus.OK);
+        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "buy/{id}", method = RequestMethod.GET)
     public CourseDTO buyCourse(@PathVariable(value = "id") Long id) {
         System.out.println("buyCourse");
-        Course course = new Course();
-        course.setName("ccc1");
-        courseService.save(course);
+//        Course course = new Course();
+//        course.setName("ccc1");
+//        courseService.save(course);
         //return courseService.getCourseDtoById(id);
         return null;
     }
