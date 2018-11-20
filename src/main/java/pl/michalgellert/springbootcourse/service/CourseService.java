@@ -1,10 +1,10 @@
 package pl.michalgellert.springbootcourse.service;
 
-import java.util.List;
+import pl.michalgellert.springbootcourse.model.CourseDTO;
+import pl.michalgellert.springbootcourse.persistence.model.Course;
+import pl.michalgellert.springbootcourse.persistence.repository.CourseRepo;
 
-public interface CourseService<T> extends BaseService {
+public interface CourseService extends BaseService<Course, Long, CourseRepo> {
 
-    public List<T> getBought();
-
-    public T buyCourse(int id);
+    CourseDTO getCourseDtoById(Long id);
 }

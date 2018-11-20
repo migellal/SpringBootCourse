@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.michalgellert.springbootcourse.model.CourseDTO;
 import pl.michalgellert.springbootcourse.exception.WrongIdException;
+import pl.michalgellert.springbootcourse.model.CourseDTO;
 import pl.michalgellert.springbootcourse.persistence.model.Course;
-import pl.michalgellert.springbootcourse.persistence.repository.CourseRepo;
+import pl.michalgellert.springbootcourse.service.CourseService;
 import pl.michalgellert.springbootcourse.service.Mapper;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class CourseController {
     private List<CourseDTO> cours = new ArrayList<>();
 
     @Autowired
-    CourseRepo courseRepo;
+    CourseService courseService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO courseDTO) {
-        if(courseDTO.getId()==null|| courseDTO.getId()<0)
+        if (courseDTO.getId() == null || courseDTO.getId() < 0)
             throw new WrongIdException("Zmienna kurs posiada id nullowe lub mniejsze od zera.");
         cours.add(courseDTO);
         System.out.println(courseDTO.getName());
@@ -40,8 +40,11 @@ public class CourseController {
     @RequestMapping(value = "buy/{id}", method = RequestMethod.GET)
     public CourseDTO buyCourse(@PathVariable(value = "id") Long id) {
         System.out.println("buyCourse");
-        Course c = courseRepo.getOne(id);
-        return Mapper.courseToDTO(c);
+        Course course = new Course();
+        course.setName("ccc1");
+        courseService.save(course);
+        //return courseService.getCourseDtoById(id);
+        return null;
     }
 
     @RequestMapping(value = "buy2", method = RequestMethod.POST)
@@ -52,13 +55,13 @@ public class CourseController {
 
     private CourseDTO getCourse(Long id) {
         CourseDTO courseDTO = null;
-        for(CourseDTO c : cours) {
-            if(c.getId()!=null&&c.getId().equals(id)) {
+        for (CourseDTO c : cours) {
+            if (c.getId() != null && c.getId().equals(id)) {
                 courseDTO = c;
                 break;
             }
         }
-        if(courseDTO ==null) {
+        if (courseDTO == null) {
             // TODO
         }
         return courseDTO;
